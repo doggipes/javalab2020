@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Интерфейс Гулиной шизы</title>
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=oogU6Q4U"></script>
+</head>
+<body>
+    <script></script>
+    <input type="text" id="text">
+    <input type="range" min="0" max="2" step=".1" value="1" name="Volume" id="volume">
+    <input onclick="responsiveVoice.speak(document.getElementById('text').value, 'UK English Male', {volume: document.getElementById('volume').value});" type="button" value="🔊 Play"/>
+</body>
+</html>
