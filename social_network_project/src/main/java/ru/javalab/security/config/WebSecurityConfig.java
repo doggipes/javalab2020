@@ -29,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/signUp").permitAll()
-                .antMatchers("/profile").authenticated();
+                .antMatchers("/profile", "/feed", "/support", "/support-admin").authenticated();
 
         http.formLogin()
                 .loginPage("/login")

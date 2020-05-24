@@ -22,7 +22,7 @@ public class PostDto {
         return PostDto.builder()
                 .id(post.getId())
                 .text(post.getText())
-                .userId(post.getUser().getId())
+                .userId(post.getUserId())
                 .build();
     }
 

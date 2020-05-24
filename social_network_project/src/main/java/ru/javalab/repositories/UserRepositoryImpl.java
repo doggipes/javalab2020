@@ -55,7 +55,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void save(User entity) {
+    public User save(User entity) {
         if(!findUserByEmail(entity.getEmail()).isPresent()) {
             KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -71,6 +71,8 @@ public class UserRepositoryImpl implements UserRepository {
 
             entity.setId(Objects.requireNonNull(keyHolder.getKey()).longValue());
         }
+
+        return entity;
     }
 
     @Override

@@ -50,8 +50,10 @@ public class TokenRepositoryImpl implements TokenRepository {
 
     @Override
     @Transactional
-    public void save(VerificationToken verificationToken) {
+    public VerificationToken save(VerificationToken verificationToken) {
         entityManager.persist(verificationToken);
+
+        return verificationToken;
     }
 
     @Override

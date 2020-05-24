@@ -1,7 +1,5 @@
 package ru.javalab.controllers.api;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,19 +21,17 @@ public class UserRestController {
 
     @RequestMapping(value = "/api/users", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity getAllUsers() throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return ResponseEntity.ok(objectMapper.writeValueAsString(UserDto.from(userService.getAllUsers())));
+    public ResponseEntity<Object> getAllUsers() {
+        return ResponseEntity.ok(UserDto.from(userService.getAllUsers()));
     }
 
     @RequestMapping(value = "/api/users/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity getUserById(@PathVariable String id){
+    public ResponseEntity<Object> getUserById(@PathVariable String id){
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            return ResponseEntity.ok(objectMapper.writeValueAsString(UserDto.from(userService.getUserById(Long.valueOf(id)).get())));
+            return ResponseEntity.ok(UserDto.from(userService.getUserById(Long.valueOf(id)).get()));
         }
-        catch (NoSuchElementException | JsonProcessingException e){
+        catch (NoSuchElementException e){
             return new ResponseEntity<>("User Not Found", HttpStatus.NOT_FOUND);
         }
         catch (NumberFormatException e){
@@ -45,12 +41,11 @@ public class UserRestController {
 
     @RequestMapping(value = "/api/users/{id}/posts", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity getPostsByUser(@PathVariable String id){
+    public ResponseEntity<Object> getPostsByUser(@PathVariable String id){
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            return ResponseEntity.ok(objectMapper.writeValueAsString(PostDto.from(postService.getPostByUserId(Long.valueOf(id)))));
+            return ResponseEntity.ok(PostDto.from(postService.getPostByUserId(Long.valueOf(id))));
         }
-        catch (NoSuchElementException | NullPointerException | JsonProcessingException e){
+        catch (NoSuchElementException | NullPointerException e){
             return new ResponseEntity<>("User Not Found", HttpStatus.NOT_FOUND);
         }
         catch (NumberFormatException e){

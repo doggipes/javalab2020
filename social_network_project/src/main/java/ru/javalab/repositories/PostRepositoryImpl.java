@@ -34,7 +34,7 @@ public class PostRepositoryImpl implements PostRepository {
                     .user(userRepository.find(row.getLong("user_id_of_post")).get())
                     .build();
 
-    private ResultSetExtractor<List<Post>> courseResultSetExtractor = resultSet -> {
+    private ResultSetExtractor<List<Post>> listResultSetExtractor = resultSet -> {
         List<Post> list = new ArrayList<>();
         while(resultSet.next()){
             list.add(Post.builder()
@@ -43,6 +43,7 @@ public class PostRepositoryImpl implements PostRepository {
                     .image(resultSet.getString("image_of_post"))
                     .userId(resultSet.getLong("user_id_of_post"))
                     .user(User.builder()
+                                .id(resultSet.getLong("id_user"))
                                 .name(resultSet.getString("name_of_user"))
                                 .email(resultSet.getString("email_of_user"))
                                 .role(Role.valueOf(resultSet.getString("role_of_user")))
@@ -67,17 +68,17 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public List<Post> findAll() {
-        return jdbcTemplate.query("SELECT * FROM informatics.post INNER JOIN person ON user_id_of_post = id_user", courseResultSetExtractor);
+        return jdbcTemplate.query("SELECT * FROM informatics.post INNER JOIN person ON user_id_of_post = id_user", listResultSetExtractor);
     }
 
     @Override
     public List<Post> findPostsByUser(User user) {
         String sql = "SELECT * FROM post WHERE user_id_of_post = ?";
-        return jdbcTemplate.query(sql, new Object[]{user.getId()}, postRowMapper);
+        return jdbcTemplate.query(sql, new Object[]{user.getId()}, listResultSetExtractor);
     }
 
     @Override
-    public void save(Post entity) {
+    public Post save(Post entity) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {
@@ -89,6 +90,8 @@ public class PostRepositoryImpl implements PostRepository {
         }, keyHolder);
 
         entity.setId(Objects.requireNonNull(keyHolder.getKey()).longValue());
+
+        return entity;
     }
 
     @Override
