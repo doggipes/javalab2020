@@ -13,10 +13,14 @@
 <form action="/login" method="post">
     <input type="text" name="email" placeholder="Email"> <br><br>
     <input type="password" name="password" placeholder="Password"> <br><br>
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+    <label>
+        <input type="checkbox" name="remember-me">Запомни меня
+    </label>
     <input type="submit" class="send" value="Login">
 </form>
 <br>
 <br>
-<a href="/signUp">Sign Up</a>
+<a href="/signUp">Login</a>
 </body>
 </html>

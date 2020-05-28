@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+<#import "spring.ftl" as spring />
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -10,14 +11,25 @@
 <body>
 <h1>Sign Up Page</h1>
 
+<@spring.bind "SignUpForm"/>
 <form action="" method="post">
-    <input type="text" name="name" placeholder="Name"> <br><br>
-    <input type="text" name="email" placeholder="Email"> <br><br>
-    <input type="password" name="password" placeholder="Password"> <br><br>
-    <input type="submit" class="send" value="Sign Up">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+    Email: <br>
+        <@spring.formInput "SignUpForm.email"/>
+        <@spring.showErrors "<br>"/>
+    <br><br>
+    Name: <br>
+        <@spring.formInput "SignUpForm.name"/>
+        <@spring.showErrors "<br>"/>
+    <br><br>
+    Password: <br>
+        <@spring.formInput "SignUpForm.password"/>
+        <@spring.showErrors "<br>"/>
+    <input type="submit" value="Submit">
 </form>
+
 <br>
 <br>
-<a href="/login">Login</a>
+<a href="/login">Sign Up</a>
 </body>
 </html>

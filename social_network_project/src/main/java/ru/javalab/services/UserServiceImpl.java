@@ -4,16 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.javalab.dto.SignUpDto;
+import ru.javalab.models.entity.User;
 import ru.javalab.models.entity.VerificationToken;
 import ru.javalab.models.enums.Role;
 import ru.javalab.models.enums.State;
-import ru.javalab.models.entity.User;
 import ru.javalab.repositories.TokenRepository;
 import ru.javalab.repositories.UserRepository;
 
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

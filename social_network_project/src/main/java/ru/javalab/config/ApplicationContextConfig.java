@@ -46,6 +46,7 @@ public class ApplicationContextConfig {
         return viewResolver;
     }
 
+
     @Bean
     public FreeMarkerConfigurer freemarkerConfig() {
         FreeMarkerConfigurer freeMarkerConfigurer = new FreeMarkerConfigurer();
