@@ -6,7 +6,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 import org.springframework.stereotype.Component;
-import ru.javalab.rabbitmq.model.User;
+import ru.javalab.rabbitmq.model.entity.User;
 import ru.javalab.rabbitmq.model.enums.Certificate;
 import ru.javalab.rabbitmq.service.EmailService;
 import ru.javalab.rabbitmq.service.EmailServiceImpl;

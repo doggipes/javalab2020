@@ -5,7 +5,7 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
-import ru.javalab.rabbitmq.model.User;
+import ru.javalab.rabbitmq.model.entity.User;
 import ru.javalab.rabbitmq.model.enums.Certificate;
 
 import java.io.IOException;
@@ -19,7 +19,7 @@ public class DocumentCreator {
         if(type.getUrl().equals(""))
             return null;
         try {
-            String filename = "C:\\projects\\javalab2020\\rabbitmq\\src\\main\\java\\ru\\javalab\\rabbitmq\\result\\" + type.name().toLowerCase() + "_" + user.getName() + "_" + user.getPass_number().replace(" ", "_") + ".pdf";
+            String filename = "C:\\projects\\javalab2020\\rabbitmq_with_spring\\src\\main\\resources\\results\\" + type.name().toLowerCase() + "_" + user.getName() + "_" + user.getPass_number().replace(" ", "_") + ".pdf";
             PdfDocument pdfDocument = new PdfDocument(new PdfReader(type.getUrl()),new PdfWriter(filename));
             PdfAcroForm form = PdfAcroForm.getAcroForm(pdfDocument, true);
             form.getField("name").setReadOnly(true);

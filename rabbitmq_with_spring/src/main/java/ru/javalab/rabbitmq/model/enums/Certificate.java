@@ -1,9 +1,9 @@
 package ru.javalab.rabbitmq.model.enums;
 
 public enum Certificate {
-    AKADEM("C:\\projects\\javalab2020\\rabbitmq\\src\\main\\java\\ru\\javalab\\rabbitmq\\example\\aka.pdf"),
-    UVOLNENIE("C:\\projects\\javalab2020\\rabbitmq\\src\\main\\java\\ru\\javalab\\rabbitmq\\example\\uvol.pdf"),
-    OTCHISLENIE("C:\\projects\\javalab2020\\rabbitmq\\src\\main\\java\\ru\\javalab\\rabbitmq\\example\\otch.pdf");
+    AKADEM("C:\\projects\\javalab2020\\rabbitmq_with_spring\\src\\main\\resources\\example\\aka.pdf"),
+    UVOLNENIE("C:\\projects\\javalab2020\\rabbitmq_with_spring\\src\\main\\resources\\example\\uvol.pdf"),
+    OTCHISLENIE("C:\\projects\\javalab2020\\rabbitmq_with_spring\\src\\main\\resources\\example\\otch.pdf");
 
     private final String url;
 

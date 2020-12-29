@@ -7,7 +7,7 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 import ru.javalab.rabbitmq.model.enums.Certificate;
 import ru.javalab.rabbitmq.util.DocumentCreator;
-import ru.javalab.rabbitmq.model.User;
+import ru.javalab.rabbitmq.model.entity.User;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;

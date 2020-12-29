@@ -10,42 +10,42 @@ import ru.javalab.rabbitmq.dto.form.CertificateForm;
 import ru.javalab.rabbitmq.model.entity.User;
 
 @Controller
-public class AkademController {
+public class UvolnenieController {
 
     private final AmqpTemplate amqpTemplate;
 
-    @Value("${rabbitmq.exchange.direct}")
-    private String exchange_direct;
+    @Value("${rabbitmq.exchange.fanout}")
+    private String exchange_fanout;
 
     @Value("${rabbitmq.exchange.topic}")
     private String exchange_topic;
 
-    @Value("${rabbitmq.routingkey.akadem}")
-    private String routingkey;
+    @Value("${rabbitmq.routingkey.exit}")
+    private String routingKey;
 
-    public AkademController(AmqpTemplate amqpTemplate) {
+    public UvolnenieController(AmqpTemplate amqpTemplate) {
         this.amqpTemplate = amqpTemplate;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/uvol", method = RequestMethod.GET)
     public String getPage(Model model) {
         System.out.println("Test message on Spring");
         model.addAttribute("CertificateForm", new CertificateForm());
-        return "certificate_of_akadem_create_page";
+        return "certificate_of_uvolnenie_create_page";
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "/uvol", method = RequestMethod.POST)
     public String postPage(CertificateForm form){
         User user = User.builder()
-                        .name(form.getName())
-                        .surname(form.getSurname())
-                        .age(form.getAge())
-                        .date(form.getDate())
-                        .email(form.getEmail())
-                        .pass_number(form.getPass_number())
+                .name(form.getName())
+                .surname(form.getSurname())
+                .age(form.getAge())
+                .date(form.getDate())
+                .email(form.getEmail())
+                .pass_number(form.getPass_number())
                 .build();
-        amqpTemplate.convertAndSend(exchange_direct, routingkey, user);
-        amqpTemplate.convertAndSend(exchange_topic, routingkey, user);
-        return "redirect:/";
+        amqpTemplate.convertAndSend(exchange_fanout, routingKey, user);
+        amqpTemplate.convertAndSend(exchange_topic, routingKey, user);
+        return "redirect:/uvol";
     }
 }

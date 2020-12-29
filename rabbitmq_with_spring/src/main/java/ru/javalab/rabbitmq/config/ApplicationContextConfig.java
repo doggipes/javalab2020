@@ -1,12 +1,15 @@
 package ru.javalab.rabbitmq.config;
 
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -14,17 +17,36 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
+import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
 @PropertySource("classpath:application.properties")
 @ComponentScan(basePackages = "ru.javalab.rabbitmq")
 public class ApplicationContextConfig {
-    public static final String QUEUE_NAME1 = "test1";
-    public static final String QUEUE_NAME2 = "test2";
 
     @Autowired
     private Environment environment;
+
+    @Bean
+    public JdbcTemplate jdbcTemplate() {
+        return new JdbcTemplate(hikariDataSource());
+    }
+
+    @Bean
+    public HikariConfig hikariConfig() {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(environment.getProperty("db.url"));
+        config.setUsername(environment.getProperty("db.user"));
+        config.setPassword(environment.getProperty("db.password"));
+        config.setDriverClassName(environment.getProperty("db.driver"));
+        return config;
+    }
+
+    @Bean
+    public DataSource hikariDataSource() {
+        return new HikariDataSource(hikariConfig());
+    }
 
     @Bean
     public ViewResolver viewResolver() {
@@ -53,46 +75,6 @@ public class ApplicationContextConfig {
         resolver.setMaxUploadSize(1000000000);
         return resolver;
     }
-//    @Bean
-//    public ConnectionFactory connectionFactory(){
-//        CachingConnectionFactory connectionFactory = new CachingConnectionFactory("localhost");
-//        return connectionFactory;
-//    }
-
-//    @Bean
-//    public AmqpAdmin amqpAdmin(){
-//        return new RabbitAdmin(connectionFactory());
-//    }
-//
-//    @Bean
-//    public RabbitTemplate rabbitTemplate(){
-//        return new RabbitTemplate(connectionFactory());
-//    }
-//
-//    @Bean
-//    public Queue myQueue1(){
-//        return new Queue(QUEUE_NAME1);
-//    }
-//
-//    @Bean
-//    public Queue myQueue2(){
-//        return new Queue(QUEUE_NAME2);
-//    }
-//
-//    @Bean
-//    public FanoutExchange fanoutExchangeA(){
-//        return new FanoutExchange("exchange-example-3");
-//    }
-//
-//    @Bean
-//    public Binding binding1(){
-//        return BindingBuilder.bind(myQueue1()).to(fanoutExchangeA());
-//    }
-//
-//    @Bean
-//    public Binding binding2(){
-//        return BindingBuilder.bind(myQueue2()).to(fanoutExchangeA());
-//    }
 
     @Bean
     public Properties properties() {
@@ -103,7 +85,8 @@ public class ApplicationContextConfig {
         properties.put("spring.mail.username", environment.getProperty("spring.mail.username"));
         properties.put("spring.mail.password", environment.getProperty("spring.mail.password"));
         properties.put("spring.mail.properties.mail.smtp.starttls.enable", environment.getProperty("spring.mail.properties.mail.smtp.starttls.enable"));
-        properties.put("mail.debug", environment.getProperty("mail.debug"));
+        properties.put("spring.mail.debug", environment.getProperty("spring.mail.debug"));
+        properties.put("spring.mail.properties.mail.debug", environment.getProperty("spring.mail.properties.mail.debug"));
         return properties;
     }
 

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import ru.javalab.rabbitmq.model.User;
+import ru.javalab.rabbitmq.model.entity.User;
 
 import java.io.IOException;
 import java.util.Scanner;
