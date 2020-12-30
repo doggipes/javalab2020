@@ -1,0 +1,72 @@
+db.users.insert(
+    {
+        name: 'Artem',
+        surname: 'Artemov',
+        age: 18,
+        email: 'artem@mail.ru',
+        password: 'qwerty123'
+    }
+    );
+db.users.insert(
+    {
+    name: 'Vadim',
+    surname: 'Vadimov',
+    age: 77,
+    email: 'ded@mail.ru',
+    password: 'qwerty321'
+    }
+    );
+db.users.insert(
+    {
+        name: 'Maxim',
+        surname: 'Maximov',
+        age: 23,
+        email: 'max@max.ru',
+        password: 'qwerty222'
+    }
+    );
+db.cars.insert(
+    {
+        name: 'Lada',
+        cost: 100000000,
+        color: 'red',
+        user_id: ObjectId('5fec24853b9bba3d8098bf45')
+    }
+    );
+db.cars.insert(
+    {
+        name: 'Priora',
+        cost: 453463634,
+        color: 'white',
+        user_id: ObjectId('5fec2615b8506e188948e92a')
+    }
+    );
+db.cars.insert(
+    {
+        name: 'BMW',
+        cost: 1000,
+        color: 'black',
+        user_id: ObjectId('5fec2615b8506e188948e92b')
+    }
+    );
+db.review.insert(
+    {
+        car_id: ObjectId('5fec2660b8506e188948e92d'),
+        user_id: ObjectId('5fec24853b9bba3d8098bf45'),
+        text: 'norm'
+    }
+    );
+db.review.insert(
+    {
+        car_id: ObjectId('5fec2661b8506e188948e92e'),
+        user_id: ObjectId('5fec2615b8506e188948e92a'),
+        text: 'norm'
+    }
+    );
+db.review.insert(
+    {
+        car_id: ObjectId('5fec2661b8506e188948e92f'),
+        user_id: ObjectId('5fec2615b8506e188948e92b'),
+        text: 'norm'
+    }
+    );
